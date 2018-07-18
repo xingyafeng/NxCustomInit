@@ -1,0 +1,59 @@
+## init yovd process
+
+on post-fs
+    chmod 0777 /system/bin/gocsdk
+    chmod 0777 /system/bin/blink
+    chmod 0777 /system/bin/blink5876
+    chmod 0777 /sys/class/yunovo/yun_bt/bt_on
+    chmod 0777 /sys/class/yunovo/yun_fm/fm_on
+    chmod 0777 /sys/class/yunovo/yun_fm/fm_hz
+    chmod 0777 /sys/class/yunovo/yun_fm/fm_mute
+    chmod 0777 /sys/class/yunovo/yun_etc/etc_on
+    chmod 0777 /sys/class/yunovo/yun_obd/obd_on
+    chmod 0777 /sys/class/yunovo/yun_usb/force_usb_device
+
+on boot
+    chown system system /custom/yunovo
+
+service yovd /system/bin/yovd
+    class main
+
+## bt goc service
+service gocsdk /system/bin/gocsdk
+    class main
+    user root
+    group root
+    disabled
+
+on property:persist.sys.start.gocsdk=1
+    start gocsdk
+
+## bt blink service
+service blink /system/bin/blink
+    class main
+    user root
+    group root
+    disabled
+
+on property:persist.sys.start.blink=1
+    start blink
+
+## 蓝牙主从切换
+service devicecontrol /system/bin/devicecontrol
+    class main
+    user root
+    group root
+    disabled
+
+on property:persist.sys.start.devicecontrol=1
+    start devicecontrol
+
+## yovbt service
+service yovbt /system/bin/yovbt
+    class main
+    user root
+    group root
+    disabled
+
+on property:persist.sys.start.yovbt=1
+    start yovbt
