@@ -57,3 +57,10 @@ service yovbt /system/bin/yovbt
 
 on property:persist.sys.start.yovbt=1
     start yovbt
+
+service killgmap /system/bin/sh -c "A=$(ps vi.amapautolite |grep -Eow [0-9]+\ );kill ${A%% *}"
+    class main
+    user root
+    group root
+    disabled
+    oneshot
