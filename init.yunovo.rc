@@ -66,3 +66,13 @@ service killgmap /system/bin/sh -c "A=$(ps vi.amapautolite |grep -Eow [0-9]+\ );
     group root
     disabled
     oneshot
+
+## bt gocs service
+service gocsdks /system/bin/gocsdksh.sh
+    class main
+    user root
+    group root
+    disabled
+
+on property:persist.sys.start.gocsdks=1
+    start gocsdks
