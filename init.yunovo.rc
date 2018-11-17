@@ -16,6 +16,8 @@ on post-fs
 
 on boot
     chown system system /custom/yunovo
+    export LD_LIBRARY_PATH /system/lib/hw
+
 
 service yovd /system/bin/yovd
     class main
@@ -60,15 +62,8 @@ service yovbt /system/bin/yovbt
 on property:persist.sys.start.yovbt=1
     start yovbt
 
-service killgmap /system/bin/sh -c "A=$(ps vi.amapautolite |grep -Eow [0-9]+\ );kill ${A%% *}"
-    class main
-    user root
-    group root
-    disabled
-    oneshot
-
 ## bt gocs service
-service gocsdks /system/bin/gocsdksh.sh
+service gocsdks /system/bin/gocsdks
     class main
     user root
     group root
@@ -76,3 +71,12 @@ service gocsdks /system/bin/gocsdksh.sh
 
 on property:persist.sys.start.gocsdks=1
     start gocsdks
+
+
+service killgmap /system/bin/sh -c "A=$(ps vi.amapautolite |grep -Eow [0-9]+\ );kill ${A%% *}"
+    class main
+    user root
+    group root
+    disabled
+    oneshot
+
