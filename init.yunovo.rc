@@ -4,6 +4,7 @@ on post-fs
     chmod 0777 /system/bin/gocsdk
     chmod 0777 /system/bin/blink
     chmod 0777 /system/bin/blink5876
+    chmod 0777 /system/bin/gocsdks
     chmod 0777 /sys/class/yunovo/yun_bt/bt_on
     chmod 0777 /sys/class/yunovo/yun_fm/fm_on
     chmod 0777 /sys/class/yunovo/yun_fm/fm_hz
@@ -16,7 +17,6 @@ on post-fs
 
 on boot
     chown system system /custom/yunovo
-    export LD_LIBRARY_PATH /system/lib/hw
 
 
 service yovd /system/bin/yovd
@@ -63,7 +63,7 @@ on property:persist.sys.start.yovbt=1
     start yovbt
 
 ## bt gocs service
-service gocsdks /system/bin/gocsdks
+service gocsdks /system/bin/sh -c "LD_LIBRARY_PATH=/system/lib/hw gocsdks"
     class main
     user root
     group root
