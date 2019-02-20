@@ -41,6 +41,9 @@ service gocsdk /system/bin/gocsdk
 on property:persist.sys.start.gocsdk=1
     start gocsdk
 
+on property:persist.sys.start.gocsdk=0
+    stop gocsdk
+
 ## bt blink service
 service blink /system/bin/blink
     class main
@@ -50,6 +53,9 @@ service blink /system/bin/blink
 
 on property:persist.sys.start.blink=1
     start blink
+
+on property:persist.sys.start.blink=0
+    stop blink
 
 ## 蓝牙主从切换
 service devicecontrol /system/bin/devicecontrol
@@ -61,6 +67,9 @@ service devicecontrol /system/bin/devicecontrol
 on property:persist.sys.start.devicecontrol=1
     start devicecontrol
 
+on property:persist.sys.start.devicecontrol=0
+    stop devicecontrol
+
 ## yovbt service
 service yovbt /system/bin/yovbt
     class main
@@ -71,6 +80,9 @@ service yovbt /system/bin/yovbt
 on property:persist.sys.start.yovbt=1
     start yovbt
 
+on property:persist.sys.start.yovbt=0
+    stop yovbt
+
 ## bt gocs service
 service gocsdks /system/bin/sh -c "LD_LIBRARY_PATH=/system/lib/hw gocsdks"
     class main
@@ -80,6 +92,9 @@ service gocsdks /system/bin/sh -c "LD_LIBRARY_PATH=/system/lib/hw gocsdks"
 
 on property:persist.sys.start.gocsdks=1
     start gocsdks
+
+on property:persist.sys.start.gocsdks=0
+    stop gocsdks
 
 
 service killgmap /system/bin/sh -c "A=$(ps vi.amapautolite |grep -Eow [0-9]+\ );kill ${A%% *}"
