@@ -97,7 +97,8 @@ on property:persist.sys.start.gocsdks=0
     stop gocsdks
 
 
-service killgmap /system/bin/sh -c "A=$(ps vi.amapautolite |grep -Eow [0-9]+\ );kill ${A%% *}"
+## service killgmap /system/bin/sh -c "A=$(ps vi.amapautolite |grep -Eow [0-9]+\ );kill ${A%% *}"
+service killgmap /system/bin/sh -c "A=$(ps | grep amapautolite$); if [[ -n $A ]];then array=(${A//\ / });kill ${array[1]}; else echo not_find_process; fi"
     class main
     user root
     group root
