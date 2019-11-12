@@ -84,7 +84,7 @@ on property:persist.sys.start.yovbt=0
     stop yovbt
 
 ## bt gocs service
-service gocsdks /system/bin/sh -c "LD_LIBRARY_PATH=/system/lib/hw gocsdks"
+service gocsdks /system/bin/gocsdks
     class main
     user root
     group root
