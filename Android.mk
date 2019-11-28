@@ -18,6 +18,7 @@ $(LOCAL_MODULE)_INSERT : $(TARGET_ROOT_OUT)/init.rc
 	$(shell \
 		if [ -f $(TARGET_ROOT_OUT)/init.rc -a -z "`cat $(TARGET_ROOT_OUT)/init.rc | grep init.yunovo.rc | awk -F/ '{print $2}'`"  ];then \
 			sed -i -e '/import \/init.environ.rc/a\import /init.yunovo.rc' $(TARGET_ROOT_OUT)/init.rc; \
+			sed -i -e "/import \/init.environ.rc/a\import /system/ect/init/init.$(YOV_CUSTOM).$(YOV_PROJECT).rc" $(TARGET_ROOT_OUT)/init.rc; \
 		fi \
 	)
 
