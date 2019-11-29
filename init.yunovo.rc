@@ -5,6 +5,7 @@ on post-fs
     chmod 0777 /system/bin/blink
     chmod 0777 /system/bin/blink5876
     chmod 0777 /system/bin/gocsdks
+    chmod 0777 /system/bin/gocsdks_8_1
     chmod 0777 /sys/class/yunovo/yun_bt/bt_on
     chmod 0777 /sys/class/yunovo/yun_fm/fm_on
     chmod 0777 /sys/class/yunovo/yun_fm/fm_hz
@@ -83,8 +84,15 @@ on property:persist.sys.start.yovbt=1
 on property:persist.sys.start.yovbt=0
     stop yovbt
 
-## bt gocs service
-service gocsdks /system/bin/gocsdks
+## bt gocs service 5.1
+service gocsdks /system/bin/sh -c "LD_LIBRARY_PATH=/system/lib/hw gocsdks"
+    class main
+    user root
+    group root
+    disabled
+
+## bt gocs service 8.1
+service gocsdks_8_1 /system/bin/gocsdks_8_1
     class main
     user root
     group root
@@ -92,9 +100,11 @@ service gocsdks /system/bin/gocsdks
 
 on property:persist.sys.start.gocsdks=1
     start gocsdks
+    start gocsdks_8_1
 
 on property:persist.sys.start.gocsdks=0
     stop gocsdks
+    stop gocsdks_8_1
 
 
 ## service killgmap /system/bin/sh -c "A=$(ps vi.amapautolite |grep -Eow [0-9]+\ );kill ${A%% *}"
