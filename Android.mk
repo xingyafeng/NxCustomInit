@@ -21,4 +21,10 @@ $(LOCAL_MODULE)_INSERT : $(TARGET_ROOT_OUT)/init.rc
 		fi \
 	)
 
+	$(shell \
+		if [ -f $(TARGET_ROOT_OUT)/init.rc -a -z "`cat $(TARGET_ROOT_OUT)/init.rc | grep init.vst.firewall.rc | awk -F/ '{print $2}'`" -a "$(YOV_BOARD)" = "ck02" ];then \
+			sed -i -e "/import \/init.environ.rc/a\import /system/etc/init/init.vst.firewall.rc" $(TARGET_ROOT_OUT)/init.rc; \
+		fi \
+	)
+
 $(LOCAL_INSTALLED_MODULE) : $(LOCAL_MODULE)_INSERT
