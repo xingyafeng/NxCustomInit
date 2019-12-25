@@ -123,4 +123,5 @@ service killgmap /system/bin/sh -c "A=$(ps | grep -E 'amapautolite$|amapauto$');
 # PC写号工具辅助服务 add by matrix
 service zenfat /system/bin/zenfat
     class main
+    oneshot
 
